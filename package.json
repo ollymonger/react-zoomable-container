@@ -10,6 +10,9 @@
   "author": "ollymonger",
   "license": "MIT",
   "private": false,
+  "scripts":{
+    "build": "tsc"
+  },
   "devDependencies": {
     "typescript": "^4.9.5",
     "react": "^16.8.0",
