@@ -1,8 +1,8 @@
 import React, { useState, useRef, ReactElement, createContext, useContext } from 'react';
-import { Container } from './Container';
-import { ZoomableContainerContext } from './Context';
-import { Controls } from './Controls';
-import { onMouseDown, onTouchStart, onWheel } from './utils';
+import { Container } from '../Container';
+import { ZoomableContainerContext } from '../../utils/Context';
+import { Controls } from '../Controls';
+import { onMouseDown, onTouchStart, onWheel } from '../../utils';
 
 type ZoomableContainerProps= {
   children: React.ReactNode;
