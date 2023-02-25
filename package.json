@@ -1,0 +1,20 @@
+{
+  "name": "react-zoomable-container",
+  "version": "1.0.0",
+  "description": "A component which allows you to, zoom, pinch and pan on any component whilst fitting to its container. Custom controls allowed!",
+  "main": "dist/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ollymonger/react-zoomable-container.git"
+  },
+  "author": "ollymonger",
+  "license": "MIT",
+  "private": false,
+  "devDependencies": {
+    "typescript": "^4.9.5"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0"
+  }
+}
