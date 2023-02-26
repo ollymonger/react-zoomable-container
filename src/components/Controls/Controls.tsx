@@ -1,20 +1,11 @@
 import React from "react"
+import './styles.css'
 
 export const Controls = ({handleReset, info } : { handleReset: () => void, info: { scale: number, position: { x: number, y: number }} } ) => {
   return (
-    <div style={{
-      position:'absolute',
-      top:0,
-      left:0,
-      zIndex:1000,
-      display:'flex',
-      flexDirection:'row',
-      alignItems:'center',
-      justifyContent:'center',
-      padding:'1em'
-    }}>
+    <div className="controls">
       <button onClick={handleReset}>Reset</button>
-      <p style={{paddingLeft:'1em', color:"gray"}}>
+      <p className="scaleInfo">
         {`Scale: ${info.scale.toFixed(2)} | Position: x${info.position.x.toFixed(2)}, y${info.position.y.toFixed(2)}`}
       </p>        
     </div>
