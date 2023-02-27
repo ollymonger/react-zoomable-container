@@ -30,8 +30,9 @@ type WrapperContextType = {
             y: number;
         };
     };
+    defaultValues?: DefaultValues;
 };
-export declare const ZoomableContainerContext: import("react").Context<WrapperContextType>;
+declare const ZoomableContainerContext: import("react").Context<WrapperContextType>;
 /**
  * A hook that provides access to the current `ZoomableContainerContext` values.
  *
@@ -39,5 +40,5 @@ export declare const ZoomableContainerContext: import("react").Context<WrapperCo
  * The `handleReset` function can be called to reset the zoom and pan values to their defaults,
  * and the `info` object contains the current zoom and pan values.
  */
-export declare const useZoomableContext: () => WrapperContextType;
-export {};
+declare const useZoomableContext: () => WrapperContextType;
+export { ZoomableContainerContext, useZoomableContext };

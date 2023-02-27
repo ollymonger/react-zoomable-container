@@ -25,4 +25,16 @@ declare const DEFAULT_POSITION: {
  * default: 0.2
  * */
 declare const DEFAULT_SCALE_STEP: number;
-export { DEFAULT_LERP_TIME, DEFAULT_SCALE, DEFAULT_POSITION, DEFAULT_SCALE_STEP };
+/**
+ * Default value passed into the onMouseDown handler for the minScale parameter
+ * @type {number}
+ * default: 0.2
+ */
+declare const DEFAULT_MIN_SCALE: number;
+/**
+ * Default value passed into the onMouseDown handler for the maxScale parameter
+ * @type {number}
+ * default: 1.8
+ * */
+declare const DEFAULT_MAX_SCALE: number;
+export { DEFAULT_LERP_TIME, DEFAULT_SCALE, DEFAULT_POSITION, DEFAULT_SCALE_STEP, DEFAULT_MIN_SCALE, DEFAULT_MAX_SCALE };

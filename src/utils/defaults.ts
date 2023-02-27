@@ -26,9 +26,26 @@ const DEFAULT_POSITION: { x: number, y: number } = { x: 0, y: 0 };
  * */
 const DEFAULT_SCALE_STEP: number = 0.2;
 
+/**
+ * Default value passed into the onMouseDown handler for the minScale parameter
+ * @type {number}
+ * default: 0.2
+ */
+const DEFAULT_MIN_SCALE: number = 0.2;
+
+/**
+ * Default value passed into the onMouseDown handler for the maxScale parameter
+ * @type {number}
+ * default: 1.8
+ * */
+const DEFAULT_MAX_SCALE: number = 1.8;
+
+
 export {
   DEFAULT_LERP_TIME,
   DEFAULT_SCALE,
   DEFAULT_POSITION,
-  DEFAULT_SCALE_STEP
+  DEFAULT_SCALE_STEP,
+  DEFAULT_MIN_SCALE,
+  DEFAULT_MAX_SCALE
 }

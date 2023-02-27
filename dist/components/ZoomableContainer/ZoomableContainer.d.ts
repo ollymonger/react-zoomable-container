@@ -1,5 +1,4 @@
 import React, { ReactElement } from 'react';
-import './styles.css';
 type ZoomableContainerProps = {
     children: React.ReactNode;
     /**
@@ -18,32 +17,18 @@ type ZoomableContainerProps = {
      *      y: 0 // Default y position
      *    },
      *   lerpTime: 300,
-     *   scaleStep: 0.2
+     *   scaleStep: 0.2,
+     *   minScale: 0.2,
+     *   maxScale: 2,
+     *
      *  }
      * ```
      **/
-    defaultValues?: {
-        scale?: number;
-        position?: {
-            x: number;
-            y: number;
-        };
-        lerpTime?: number;
-        scaleStep?: number;
-    };
+    defaultValues?: DefaultValues;
 };
 /**
  * A wrapper component that provides zooming and panning functionality for its child components.
  *
- * @component
- * @example
- * ```
- * <Wrapper>
- *   <div style={{ display: 'flex', width:'100%', height:'100%'}}>
- *    <img src="my-image.png" alt="My Image" />
- *   </div>
- * </Wrapper>
- * ```
  */
-declare const ZoomableContainer: React.FC<ZoomableContainerProps>;
+declare function ZoomableContainer({ children, customControls, defaultValues }: ZoomableContainerProps): JSX.Element;
 export { ZoomableContainer };

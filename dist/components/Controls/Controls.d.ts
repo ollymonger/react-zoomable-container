@@ -1,5 +1,5 @@
-import './styles.css';
-export declare const Controls: ({ handleReset, info }: {
+/// <reference types="react" />
+declare const Controls: ({ handleReset, info }: {
     handleReset: () => void;
     info: {
         scale: number;
@@ -9,3 +9,4 @@ export declare const Controls: ({ handleReset, info }: {
         };
     };
 }) => JSX.Element;
+export { Controls };
