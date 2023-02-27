@@ -1,5 +1,4 @@
 import React from "react";
-import './styles.css'
 
 export const Container = ({ scale, position, children } : { scale: number; position: { x: number; y: number }, children: React.ReactNode }) => {
   return (

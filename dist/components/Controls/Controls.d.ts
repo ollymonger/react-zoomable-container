@@ -1,4 +1,4 @@
-/// <reference types="react" />
+import './styles.css';
 export declare const Controls: ({ handleReset, info }: {
     handleReset: () => void;
     info: {

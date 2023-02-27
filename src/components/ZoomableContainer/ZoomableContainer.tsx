@@ -2,7 +2,7 @@ import React, { useState, useRef, ReactElement, createContext, useContext } from
 import { Container } from '../Container';
 import { ZoomableContainerContext } from '../../utils/Context';
 import { Controls } from '../Controls';
-import { onMouseDown, onTouchStart, onWheel } from '../../utils';
+import { DEFAULT_LERP_TIME, DEFAULT_POSITION, DEFAULT_SCALE, DEFAULT_SCALE_STEP, onMouseDown, onTouchStart, onWheel } from '../../utils';
 import './styles.css'
 
 type ZoomableContainerProps= {

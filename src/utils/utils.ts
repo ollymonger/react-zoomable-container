@@ -8,11 +8,9 @@ const onMouseDown = ({ event, setPosition, position, lerpTime } : { event: React
   const startX = event.pageX - position.x;
   const startY = event.pageY - position.y;
 
-  const startTime = performance.now();
 
   const handleMouseMove = (event: MouseEvent) => {
-    const timeElapsed = performance.now() - startTime;
-    const progress = Math.min(timeElapsed / lerpTime, 1); // animate over 300 milliseconds
+    const progress = Math.min(100 / lerpTime, 1); // animate over 300 milliseconds
     const x = lerp(position.x, event.pageX - startX, progress);
     const y = lerp(position.y, event.pageY - startY, progress);
     setPosition({ x, y });

@@ -7,7 +7,7 @@
  *   - `scale`: The current scale factor for zooming.
  *   - `position`: The current x and y positions for panning.
  */
-declare type WrapperContextType = {
+type WrapperContextType = {
     /**
     * A function that resets the zoom and pan values to their defaults.
     */

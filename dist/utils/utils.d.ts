@@ -3,7 +3,7 @@ declare const onWheel: ({ event, setScale, scale }: {
     setScale: (scale: number) => void;
     scale: number;
 }) => void;
-declare const onMouseDown: ({ event, setPosition, position }: {
+declare const onMouseDown: ({ event, setPosition, position, lerpTime }: {
     event: React.MouseEvent<HTMLDivElement>;
     setPosition: ({ x, y }: {
         x: number;
@@ -13,6 +13,7 @@ declare const onMouseDown: ({ event, setPosition, position }: {
         x: number;
         y: number;
     };
+    lerpTime: number;
 }) => void;
 declare const onTouchStart: ({ event, setPosition, position }: {
     event: React.TouchEvent<HTMLDivElement>;
