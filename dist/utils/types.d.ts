@@ -1,4 +1,9 @@
-type DefaultValues = {
+/**
+ * ControlOverridesType is a type that defines the properties that can be passed into the controlOverrides prop of the ZoomableContainer component.
+ *
+ * @typedef {Object} ControlOverridesType
+ */
+type ControlOverridesType = {
     /**
      * The default scale factor for zooming.
      * @type {number}

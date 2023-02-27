@@ -24,11 +24,56 @@ type ZoomableContainerProps = {
      *  }
      * ```
      **/
-    defaultValues?: DefaultValues;
+    controlOverrides?: ControlOverridesType;
 };
 /**
  * A wrapper component that provides zooming and panning functionality for its child components.
+ * This component scales to be 100% of the width and height of its parent container.
+ * properties:
+ * @param {React.ReactNode} children - The child components that will be rendered inside the `ZoomableContainer`.
+ * @param {ReactElement<any, any> | null} customControls - Optional react component that will be rendered as the custom controls for the `ZoomableContainer`.
+ * @param {ControlOverridesType} controlOverrides - Optional object that will override the default values for the `ZoomableContainer` component.
  *
+ *
+ * @example
+ * ```
+ * import { ZoomableContainer } from 'react-zoomable-container';
+ *
+ * const App = () => {
+ *  return (
+ *   <ZoomableContainer>
+ *    <div style={{width: '100%', height: '100%', backgroundColor: 'red'}}>
+ *     <h1>Zoomable Container</h1>
+ *    </div>
+ *  </ZoomableContainer>
+ * )
+ * }
+ *
+ * or providing custom controls and overrides
+ *
+ * import { ZoomableContainer } from 'react-zoomable-container';
+ *
+ * const App = () => {
+ *  const overrides = {
+ *    scale: 0.8,
+ *    position: {
+ *      x: -0,
+ *      y: 0
+ *    },
+ *    lerpTime: 300,
+ *    scaleStep: 0.2,
+ *    minScale: 0.2,
+ *    maxScale: 2,
+ *  }
+ *  return (
+ *    <ZoomableContainer customControls={<CustomControls />} controlOverrides={overrides}>
+ *     <div style={{width: '100%', height: '100%', backgroundColor: 'red'}}>
+ *      <h1>Zoomable Container</h1>
+ *     </div>
+ *    </ZoomableContainer>
+ * )
+ * }
+ * ```
  */
-declare function ZoomableContainer({ children, customControls, defaultValues }: ZoomableContainerProps): JSX.Element;
+declare function ZoomableContainer({ children, customControls, controlOverrides }: ZoomableContainerProps): JSX.Element;
 export { ZoomableContainer };
