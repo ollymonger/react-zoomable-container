@@ -27,19 +27,6 @@ jobs:
       - name: Build
         run: yarn build
 
-      # Create a new Git release
-      - name: Create Git Release
-        uses: softprops/action-gh-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v${{ github.ref }}
-          name: Latest
-          body: |
-            CI Fixes
-          draft: false
-          prerelease: false
-
       # Authenticate with npm
       # - name: Authenticate with npm
       #   run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > .npmrc
