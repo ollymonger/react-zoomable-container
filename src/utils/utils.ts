@@ -43,28 +43,19 @@ const onWheel = ({ event, setScale, scale, controlOverrides } : { event: React.W
  * @returns void
  * */
 const onMouseDown = ({ event, setPosition, position, lerpTime } : { event: React.MouseEvent<HTMLDivElement>, setPosition: ({x, y}: { x: number, y: number }) => void, position: { x: number, y: number }, lerpTime: number }) => {
-  const startX = event.pageX - position.x;
-  const startY = event.pageY - position.y;
-
-  const startTime = performance.now(); // Time when the animation starts
-
-  const handleMouseMove = (event: MouseEvent) => {
-    const currentTime = performance.now();
-    const elapsedTime = currentTime - startTime;
-    const progress = Math.min(elapsedTime / lerpTime, 1);
-
-    const x = lerp(position.x, event.pageX - startX, progress);
-    const y = lerp(position.y, event.pageY - startY, progress);
-    setPosition({ x, y });
-  };
-
-  const handleMouseUp = () => {
-    document.removeEventListener('mousemove', handleMouseMove);
-    document.removeEventListener('mouseup', handleMouseUp);
-  };
-
-  document.addEventListener('mousemove', handleMouseMove);
-  document.addEventListener('mouseup', handleMouseUp);
+  handleMovement({
+    movementListeners: {
+      move: 'mousemove',
+      end: 'mouseup'
+    },
+    callback: setPosition,
+    position,
+    target: {
+      x: event.pageX,
+      y: event.pageY
+    },
+    lerpTime
+  });
 };
 
 /**
@@ -76,30 +67,55 @@ const onMouseDown = ({ event, setPosition, position, lerpTime } : { event: React
  * @returns void
  * */
 const onTouchStart = ({ event, setPosition, position, lerpTime } : { event: React.TouchEvent<HTMLDivElement>, setPosition: ({x, y}: { x: number, y: number }) => void, position: { x: number, y: number }, lerpTime: number }) => {
-  const startX = event.touches[0].pageX - position.x;
-  const startY = event.touches[0].pageY - position.y;
+  handleMovement({
+    movementListeners: {
+      move: 'touchmove',
+      end: 'touchend'
+    },
+    callback: setPosition,
+    position,
+    target: {
+      x: event.touches[0].pageX,
+      y: event.touches[0].pageY
+    },
+    lerpTime
+  });
+};
+
+/**
+ * A function to handle the movement of the mouse or touch.
+ * 
+ * @param event The mouse down event.
+ * @param setPosition A function that sets the position value.
+ * @param position The current position value.
+ * @param lerpTime The lerp time value.
+ * @returns void
+ * */
+function handleMovement({ movementListeners, callback, position, target, lerpTime } : { movementListeners: { move: 'touchmove' | 'mousemove', end: 'touchend' | 'mouseup'}, callback: ({x, y}: { x: number, y: number }) => void, position: { x: number, y: number }, target: { x: number, y: number }, lerpTime: number }) {
+  const startX = target.x - position.x;
+  const startY = target.y - position.y;
 
   const startTime = performance.now(); // Time when the animation starts
 
-  const handleTouchMove = (event: TouchEvent) => {
+  const handleTouchMove = () => {
     const currentTime = performance.now();
     const elapsedTime = currentTime - startTime;
     const progress = Math.min(elapsedTime / lerpTime, 1);
 
-    const x = lerp(position.x, event.touches[0].pageX - startX, progress);
-    const y = lerp(position.y, event.touches[0].pageY - startY, progress);
-    setPosition({ x, y });
+    const x = lerp(position.x, target.x - startX, progress);
+    const y = lerp(position.y, target.y - startY, progress);
+    callback({ x, y });
   };
+  
 
   const handleTouchEnd = () => {
-    document.removeEventListener('touchmove', handleTouchMove);
-    document.removeEventListener('touchend', handleTouchEnd);
+    document.removeEventListener(movementListeners.move, handleTouchMove);
+    document.removeEventListener(movementListeners.end, handleTouchEnd);
   };
 
-  document.addEventListener('touchmove', handleTouchMove);
-  document.addEventListener('touchend', handleTouchEnd);
-};
-
+  document.addEventListener(movementListeners.move, handleTouchMove);
+  document.addEventListener(movementListeners.end, handleTouchEnd);
+}
 /**
  * A function that linearly interpolates between two numbers.
  *  
