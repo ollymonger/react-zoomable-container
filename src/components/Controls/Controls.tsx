@@ -4,7 +4,7 @@ import { useZoomableContext } from "../../utils";
 // This is an example of a Control component which takes in a handleReset function and info object as props, 
 // which is provided from the ZoomableContainer context.
 const Controls = () => {
-  const { handleReset, zoomIn, zoomOut, info } = useZoomableContext();
+  const { handleReset, zoomIn, zoomOut, info, controls: { pan: { locked: panLocked, setLocked: setPanLock }, zoom: { locked: zoomLocked, setLocked: setZoomLock } } } = useZoomableContext();
 
   return (
     <div style={{
@@ -22,6 +22,12 @@ const Controls = () => {
         <button onClick={handleReset}>Reset</button>
         <button onClick={zoomIn}>Zoom In</button>
         <button onClick={zoomOut}>Zoom Out</button>
+        <button onClick={() => setPanLock(!panLocked)}>
+          {panLocked ? 'Unlock Pan' : 'Lock Pan'}
+        </button>
+        <button onClick={() => setZoomLock(!zoomLocked)}>
+          {zoomLocked ? 'Unlock Zoom' : 'Lock Zoom'}
+        </button>
       </div>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
         <h5>Scale</h5>

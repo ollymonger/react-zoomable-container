@@ -40,11 +40,11 @@ type WrapperContextType = {
   controls: {
     pan: {
       locked: boolean;
-      setLocked?: (boolean: boolean) => void;
+      setLocked: (boolean: boolean) => void;
     },
     zoom: {
       locked: boolean;
-      setLocked?: (boolean: boolean) => void;
+      setLocked: (boolean: boolean) => void;
     }
   }
 }
@@ -71,10 +71,12 @@ const ZoomableContainerContext = createContext<WrapperContextType>({
   },
   controls: {
     pan: {
-      locked: false
+      locked: false,
+      setLocked: () => {}
     },
     zoom: {
-      locked: false
+      locked: false,
+      setLocked: () => {}
     }
   }
 });
