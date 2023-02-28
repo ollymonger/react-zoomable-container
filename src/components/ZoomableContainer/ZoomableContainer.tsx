@@ -113,7 +113,6 @@ function ZoomableContainer({ children, customControls, controlOverrides }: Zooma
 
   // Handle scroll events
   const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
-    event.preventDefault();
     onWheel({ event: event, setScale: setScale, scale: scale, controlOverrides });
   };
 
