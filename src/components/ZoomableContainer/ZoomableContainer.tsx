@@ -90,16 +90,19 @@ function ZoomableContainer({ children, customControls, controlOverrides }: Zooma
 
   // Handle scroll events
   const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
+    event.preventDefault();
     onWheel({ event: event, setScale: setScale, scale: scale, controlOverrides });
   };
 
   // Handle mouse down
   const handleMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
+    event.preventDefault();
     onMouseDown({ event: event, setPosition: setPosition, position: position, lerpTime: controlOverrides && controlOverrides.lerpTime ? controlOverrides.lerpTime : DEFAULT_LERP_TIME })
   };
 
   // Handle touch start
   const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
+    event.preventDefault();
     onTouchStart({ event: event, setPosition: setPosition, position: position });
   };
 
