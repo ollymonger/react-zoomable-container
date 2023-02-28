@@ -72,7 +72,7 @@ You can also create your own Controls component to add.
 
 > Integrate a pinch mechanic
 >
-> Smoothing on the mouse/touch dragging.
+> Add buttons for zooming in/out by default
 
 ### Available properties
 
