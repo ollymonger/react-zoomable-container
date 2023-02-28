@@ -39,6 +39,36 @@
 >  
 > import { ZoomableContainer } from 'react-zoomable-container';
 >
+> const Controls = () => {
+>   const { handleReset, zoomIn, zoomOut, info } = useZoomableContext();
+>
+>   return (
+>     <div style={{
+>       position:'absolute',
+>       top:0,
+>       left:0,
+>       zIndex:1000,
+>       display:'flex',
+>       flexDirection: "row",
+>       alignItems:'center',
+>       justifyContent:'center',
+>       padding:'1em',
+>     }}>
+>       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+>         <button onClick={handleReset}>Reset</button>
+>         <button onClick={zoomIn}>Zoom In</button>
+>         <button onClick={zoomOut}>Zoom Out</button>
+>       </div>
+>       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+>         <h5>Scale</h5>
+>         <p>{info.scale.toFixed(2)}</p>
+>         <h5>Position</h5>
+>         <p>{`x: ${info.position.x.toFixed(2)}, y: ${info.position.y.toFixed(2)}`}</p>
+>       </div>
+>     </div>
+>   )
+> }
+>
 > const App = () => {
 >   const overrides = {
 >    scale: 0.8,
@@ -52,7 +82,7 @@
 >     maxScale: 2,
 >    }
 >   return (
->     <ZoomableContainer customControls={<CustomControls />} controlOverrides={overrides}>
+>     <ZoomableContainer customControls={<Controls />} controlOverrides={overrides}>
 >       <div style={{width: '100%', height: '100%', backgroundColor: 'red'}}>
 >         <h1>Zoomable Container</h1>
 >       </div>
