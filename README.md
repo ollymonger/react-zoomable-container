@@ -13,7 +13,6 @@ My Drive
 >
 > 👑 Ability to override default values, provide custom buttons to control zoomin/out/reset.
 
-
 [[DEMO] ollymonger.github.io](ollymonger.github.io "Demo")
 
 ### Installation
@@ -78,10 +77,10 @@ You can also create your own Controls component to add.
 
 ### Available properties
 
-| Property name     | Type                                                                                                                                                                                                                      | Default                                                                                                                                                                                      |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| customControls?   | Optional ReactNode                                                                                                                                                                                                        | ./src/components/Controls.tsx                                                                                                                                                                |
-| controlOverrides? | ```{<br />  scale?: number;<br />  position?: {<br />    x: number<br />    y: number<br />  };<br />  lerpTime?: number;<br />  scaleStep?: number;<br />  minScale?: number;<br />  maxScale?: number<br />} | ``{<br />  scale: 0.8,<br />  position: {<br />    x: 0,<br />    y: 0<br />  },<br />  lerpTime: 300,<br />  scaleStep: 0.2,<br />  minScale: 0.2,<br />  maxScale: 1.8<br />}`` |
+| Property name     | Type                                                                                                                                                                                                                   | Default                                                                                                                                                                         |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| customControls?   | Optional ReactNode                                                                                                                                                                                                     | ./src/components/Controls.tsx                                                                                                                                                   |
+| controlOverrides? | {<br />  scale?: number;<br />  position?: {<br />    x: number<br />    y: number<br />  };<br />  lerpTime?: number;<br />  scaleStep?: number;<br />  minScale?: number;<br />  maxScale?: number<br />} | {<br />  scale: 1,<br />  position: {<br />    x: 0, y: 0<br />  },<br />   lerpTime: 300,<br />   scaleStep: 0.2,<br />   minScale: 0,<br />   maxScale: 1<br />} |
 
 ## Development
 
@@ -124,6 +123,6 @@ Want to contribute? Great!
 3. This will now pickup every build change on the other project.
 4. Make Pull request with your changes!
 
-### License
+#### License
 
 MIT
