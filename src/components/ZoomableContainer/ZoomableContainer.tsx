@@ -2,7 +2,7 @@ import React, { useState, useRef, ReactElement } from 'react';
 import { Container } from '../Container';
 import { ZoomableContainerContext } from '../../utils/Context';
 import { Controls } from '../Controls';
-import { DEFAULT_LERP_TIME, DEFAULT_POSITION, DEFAULT_SCALE, DEFAULT_SCALE_STEP, onMouseDown, onTouchStart, onWheel } from '../../utils';
+import { DEFAULT_LERP_TIME, DEFAULT_POSITION, DEFAULT_SCALE, DEFAULT_SCALE_STEP, onMouseDown, onTouchStart, onWheel, zoom } from '../../utils';
 import styles from './styles'
 import { ControlOverridesType } from '../../utils/types';
 
@@ -137,12 +137,12 @@ function ZoomableContainer({ children, customControls, controlOverrides }: Zooma
 
 
   const zoomIn = React.useCallback(() => {
-    setScale(scale + (controlOverrides && controlOverrides.scaleStep ? controlOverrides?.scaleStep : DEFAULT_SCALE_STEP));
-  },[scale])
+    zoom({ inOrOut: 'in', setScale: setScale, scale: scale, controlOverrides });
+  },[scale, controlOverrides, setScale, zoom])
 
   const zoomOut = React.useCallback(() => {
-    setScale(scale - (controlOverrides && controlOverrides.scaleStep ? controlOverrides?.scaleStep : DEFAULT_SCALE_STEP));
-  },[scale])
+    zoom({ inOrOut: 'out', setScale: setScale, scale: scale, controlOverrides });
+  },[scale, controlOverrides, setScale, zoom])
 
   return (
     <div 

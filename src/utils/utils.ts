@@ -112,4 +112,25 @@ const lerp = (start: number, end: number, t: number) => {
   return start * (1 - t) + end * t;
 };
 
-export { onWheel, onMouseDown, onTouchStart };
+
+const zoom = ({ inOrOut, setScale, scale, controlOverrides } : { inOrOut: 'in' | 'out', setScale: (scale: number) => void, scale: number, controlOverrides?: ControlOverridesType }) => {
+  const targetScale = scale + (inOrOut === 'in' ? (controlOverrides && controlOverrides.scaleStep ? controlOverrides.scaleStep : DEFAULT_SCALE_STEP) : -(controlOverrides && controlOverrides.scaleStep ? controlOverrides.scaleStep : DEFAULT_SCALE_STEP));
+  const duration = controlOverrides && controlOverrides.lerpTime ? controlOverrides.lerpTime : DEFAULT_LERP_TIME; // Duration of the animation in milliseconds
+  const startTime = performance.now(); // Time when the animation starts
+
+  const animateZoom = (currentTime: number) => {
+    const elapsedTime = currentTime - startTime; // Time elapsed since the animation started
+    const progress = Math.min(elapsedTime / duration, 1); // Progress of the animation (0 to 1)
+
+    const currentScale = lerp(scale, targetScale, progress); // Calculate the current scale based on the progress
+
+    setScale(currentScale);
+
+    if (progress < 1) {
+      // If the animation is not finished, request another animation frame
+      requestAnimationFrame(animateZoom);
+    }
+  };
+}
+
+export { onWheel, onMouseDown, onTouchStart, zoom };
