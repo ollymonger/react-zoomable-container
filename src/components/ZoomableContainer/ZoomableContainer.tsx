@@ -4,6 +4,7 @@ import { ZoomableContainerContext } from '../../utils/Context';
 import { Controls } from '../Controls';
 import { DEFAULT_LERP_TIME, DEFAULT_POSITION, DEFAULT_SCALE, DEFAULT_SCALE_STEP, onMouseDown, onTouchStart, onWheel } from '../../utils';
 import styles from './styles'
+import { ControlOverridesType } from '../../utils/types';
 
 type ZoomableContainerProps= {
   children: React.ReactNode;

@@ -4,7 +4,7 @@
  * 
  * @typedef {Object} ControlOverridesType
  */
-type ControlOverridesType = {
+export type ControlOverridesType = {
     /**
      * The default scale factor for zooming.
      * @type {number}

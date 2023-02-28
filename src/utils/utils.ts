@@ -1,4 +1,5 @@
 import { DEFAULT_LERP_TIME, DEFAULT_MAX_SCALE, DEFAULT_MIN_SCALE, DEFAULT_SCALE_STEP } from "./defaults";
+import { ControlOverridesType } from "./types";
 
 
 /**
