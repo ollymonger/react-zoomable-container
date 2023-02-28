@@ -3,7 +3,7 @@
  *
  * @typedef {Object} ControlOverridesType
  */
-type ControlOverridesType = {
+export type ControlOverridesType = {
     /**
      * The default scale factor for zooming.
      * @type {number}
@@ -43,4 +43,16 @@ type ControlOverridesType = {
      * default: 1.8
      * */
     maxScale?: number;
+    /**
+     * Disables the zoom functionality
+     * @type {boolean}
+     * default: false
+     * */
+    disableZoom?: boolean;
+    /**
+     * Disables the pan functionality
+     * @type {boolean}
+     * default: false
+     * */
+    disablePan?: boolean;
 };

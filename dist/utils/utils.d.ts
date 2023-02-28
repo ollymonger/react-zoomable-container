@@ -1,3 +1,4 @@
+import { ControlOverridesType } from "./types";
 /**
  * A function that handles the mouse wheel event.
  *
@@ -7,11 +8,12 @@
  * @param controlOverrides An object containing the control overrides.
  * @returns void
  * */
-declare const onWheel: ({ event, setScale, scale, controlOverrides }: {
+declare const onWheel: ({ event, setScale, scale, controlOverrides, zoomLock }: {
     event: React.WheelEvent<HTMLDivElement>;
     setScale: (scale: number) => void;
     scale: number;
     controlOverrides?: ControlOverridesType | undefined;
+    zoomLock: boolean;
 }) => void;
 /**
  * A function that handles the mouse down event; used for panning.
@@ -22,7 +24,7 @@ declare const onWheel: ({ event, setScale, scale, controlOverrides }: {
  * @param lerpTime The lerp time value.
  * @returns void
  * */
-declare const onMouseDown: ({ event, setPosition, position, lerpTime }: {
+declare const onMouseDown: ({ event, setPosition, position, lerpTime, panLock }: {
     event: React.MouseEvent<HTMLDivElement>;
     setPosition: ({ x, y }: {
         x: number;
@@ -33,6 +35,7 @@ declare const onMouseDown: ({ event, setPosition, position, lerpTime }: {
         y: number;
     };
     lerpTime: number;
+    panLock: boolean;
 }) => void;
 /**
  * A function that handles the touch start event; used for panning on mobile devices.
@@ -42,7 +45,7 @@ declare const onMouseDown: ({ event, setPosition, position, lerpTime }: {
  * @param position The current position value.
  * @returns void
  * */
-declare const onTouchStart: ({ event, setPosition, position }: {
+declare const onTouchStart: ({ event, setPosition, position, lerpTime, panLock }: {
     event: React.TouchEvent<HTMLDivElement>;
     setPosition: ({ x, y }: {
         x: number;
@@ -52,5 +55,13 @@ declare const onTouchStart: ({ event, setPosition, position }: {
         x: number;
         y: number;
     };
+    lerpTime: number;
+    panLock: boolean;
 }) => void;
-export { onWheel, onMouseDown, onTouchStart };
+declare const zoom: ({ inOrOut, setScale, scale, controlOverrides }: {
+    inOrOut: 'in' | 'out';
+    setScale: (scale: number) => void;
+    scale: number;
+    controlOverrides?: ControlOverridesType | undefined;
+}) => void;
+export { onWheel, onMouseDown, onTouchStart, zoom };

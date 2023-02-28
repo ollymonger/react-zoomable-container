@@ -10,17 +10,19 @@ const Controls = () => {
     if (controlOverrides && controlOverrides.maxScale) {
       return info.scale >= controlOverrides.maxScale;
     }
-  },[controlOverrides, info.scale])
+    return zoomLocked;
+  },[controlOverrides, info.scale, zoomLocked])
 
   const zoomOutButtonDisabled = React.useMemo(() => {
     if (controlOverrides && controlOverrides.minScale) {
       return info.scale <= controlOverrides.minScale;
     }
-  },[controlOverrides, info.scale])
+    return zoomLocked;
+  },[controlOverrides, info.scale, zoomLocked])
 
   return (
-    <div style={{ position: 'absolute', top: '10px', right: '10px', backgroundColor: '#ffffff', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)', borderRadius: '5px', padding: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-      <h2 style={{ fontSize: '20px', margin: '0 0 10px' }}>Map Controls</h2>
+    <div style={{ position: 'absolute', width:'150px', top: '10px', right: '10px', backgroundColor: '#ffffff', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)', borderRadius: '5px', padding: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center', zIndex: 100 }}>
+      <h2 style={{ fontSize: '20px', margin: '0 0 10px' }}>Controls</h2>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <button style={{ 
           backgroundColor: '#007bff', 
@@ -28,8 +30,8 @@ const Controls = () => {
           border: '2px solid #007bff', 
           borderRadius: '5px', 
           padding: '10px 20px', 
-          fontSize: '16px', 
-          marginBottom: '10px' 
+          fontSize: '12px', 
+          marginBottom: '10px'
         }} onClick={handleReset}>Reset</button>
         <button style={{ 
           backgroundColor: '#007bff', 
@@ -37,8 +39,9 @@ const Controls = () => {
           border: '2px solid #007bff', 
           borderRadius: '5px', 
           padding: '10px 20px', 
-          fontSize: '16px',
-          marginBottom: '10px' 
+          fontSize: '12px',
+          marginBottom: '10px',
+          cursor: zoomLocked ? 'not-allowed' : 'pointer'
         }} onClick={zoomIn} disabled={zoomInButtonDisabled}>Zoom In</button>
         <button style={{ 
           backgroundColor: '#007bff', 
@@ -46,8 +49,9 @@ const Controls = () => {
           border: '2px solid #007bff', 
           borderRadius: '5px', 
           padding: '10px 20px', 
-          fontSize: '16px', 
-          marginBottom: '10px' 
+          fontSize: '12px', 
+          marginBottom: '10px',
+          cursor: zoomLocked ? 'not-allowed' : 'pointer'
         }} onClick={zoomOut} disabled={zoomOutButtonDisabled}>Zoom Out</button>
         <button style={{ 
           backgroundColor: '#007bff', 
@@ -55,8 +59,8 @@ const Controls = () => {
           border: '2px solid #007bff', 
           borderRadius: '5px', 
           padding: '10px 20px', 
-          fontSize: '16px', 
-          marginBottom: '10px' 
+          fontSize: '12px', 
+          marginBottom: '10px'
         }} onClick={() => setPanLock(!panLocked)}>
           {panLocked ? 'Unlock Pan' : 'Lock Pan'}
         </button>
@@ -66,7 +70,7 @@ const Controls = () => {
           border: '2px solid #007bff', 
           borderRadius: '5px', 
           padding: '10px 20px', 
-          fontSize: '16px', 
+          fontSize: '12px', 
           marginBottom: '10px'
         }} onClick={() => setZoomLock(!zoomLocked)}>
           {zoomLocked ? 'Unlock Zoom' : 'Lock Zoom'}

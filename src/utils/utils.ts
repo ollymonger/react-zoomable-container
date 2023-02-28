@@ -11,7 +11,9 @@ import { ControlOverridesType } from "./types";
  * @param controlOverrides An object containing the control overrides.
  * @returns void
  * */
-const onWheel = ({ event, setScale, scale, controlOverrides } : { event: React.WheelEvent<HTMLDivElement>, setScale: (scale: number) => void, scale: number, controlOverrides?: ControlOverridesType }) => {
+const onWheel = ({ event, setScale, scale, controlOverrides, zoomLock } : { event: React.WheelEvent<HTMLDivElement>, setScale: (scale: number) => void, scale: number, controlOverrides?: ControlOverridesType, zoomLock: boolean }) => {
+  if(zoomLock) return;
+  if(controlOverrides && controlOverrides.disableZoom) return;
   const targetScale = scale - (event.deltaY * 0.01 * (controlOverrides && controlOverrides.scaleStep ? controlOverrides.scaleStep : DEFAULT_SCALE_STEP));
   const duration = controlOverrides && controlOverrides.lerpTime ? controlOverrides.lerpTime : DEFAULT_LERP_TIME; // Duration of the animation in milliseconds
   const startTime = performance.now(); // Time when the animation starts
@@ -42,7 +44,8 @@ const onWheel = ({ event, setScale, scale, controlOverrides } : { event: React.W
  * @param lerpTime The lerp time value.
  * @returns void
  * */
-const onMouseDown = ({ event, setPosition, position, lerpTime } : { event: React.MouseEvent<HTMLDivElement>, setPosition: ({x, y}: { x: number, y: number }) => void, position: { x: number, y: number }, lerpTime: number }) => {
+const onMouseDown = ({ event, setPosition, position, lerpTime, panLock } : { event: React.MouseEvent<HTMLDivElement>, setPosition: ({x, y}: { x: number, y: number }) => void, position: { x: number, y: number }, lerpTime: number, panLock: boolean }) => {
+  if(panLock) return;
   const startX = event.pageX - position.x;
   const startY = event.pageY - position.y;
 
@@ -75,7 +78,8 @@ const onMouseDown = ({ event, setPosition, position, lerpTime } : { event: React
  * @param position The current position value.
  * @returns void
  * */
-const onTouchStart = ({ event, setPosition, position, lerpTime } : { event: React.TouchEvent<HTMLDivElement>, setPosition: ({x, y}: { x: number, y: number }) => void, position: { x: number, y: number }, lerpTime: number }) => {
+const onTouchStart = ({ event, setPosition, position, lerpTime, panLock } : { event: React.TouchEvent<HTMLDivElement>, setPosition: ({x, y}: { x: number, y: number }) => void, position: { x: number, y: number }, lerpTime: number, panLock: boolean  }) => {
+  if(panLock) return;
   const startX = event.touches[0].pageX - position.x;
   const startY = event.touches[0].pageY - position.y;
 
@@ -113,6 +117,7 @@ const lerp = (start: number, end: number, t: number) => {
 };
 
 const zoom = ({ inOrOut, setScale, scale, controlOverrides } : { inOrOut: 'in' | 'out', setScale: (scale: number) => void, scale: number, controlOverrides?: ControlOverridesType }) => {
+  if(controlOverrides && controlOverrides.disableZoom) return;
   const targetScale = scale + (inOrOut === 'in' ? (controlOverrides && controlOverrides.scaleStep ? controlOverrides.scaleStep : DEFAULT_SCALE_STEP) : -(controlOverrides && controlOverrides.scaleStep ? controlOverrides.scaleStep : DEFAULT_SCALE_STEP));
   const duration = controlOverrides && controlOverrides.lerpTime ? controlOverrides.lerpTime : DEFAULT_LERP_TIME; // Duration of the animation in milliseconds
   const startTime = performance.now(); // Time when the animation starts
