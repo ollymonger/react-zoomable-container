@@ -1,4 +1,4 @@
-import { DEFAULT_LERP_TIME, DEFAULT_SCALE_STEP } from "./defaults";
+import { DEFAULT_LERP_TIME, DEFAULT_MAX_SCALE, DEFAULT_MIN_SCALE, DEFAULT_SCALE_STEP } from "./defaults";
 
 
 /**
@@ -19,7 +19,7 @@ const onWheel = ({ event, setScale, scale, controlOverrides } : { event: React.W
     const elapsedTime = currentTime - startTime; // Time elapsed since the animation started
     const progress = Math.min(elapsedTime / duration, 1); // Progress of the animation (0 to 1)
 
-    const currentScale = Math.max(0.2, Math.min(1.8, scale + ((targetScale - scale) * progress))); // Calculate the current scale based on the progress
+    const currentScale = Math.max(controlOverrides && controlOverrides.minScale ? controlOverrides.minScale : DEFAULT_MIN_SCALE, Math.min(controlOverrides && controlOverrides.maxScale ? controlOverrides.maxScale : DEFAULT_MAX_SCALE, scale + ((targetScale - scale) * progress))); // Calculate the current scale based on the progress
 
     setScale(currentScale);
 
@@ -45,9 +45,13 @@ const onMouseDown = ({ event, setPosition, position, lerpTime } : { event: React
   const startX = event.pageX - position.x;
   const startY = event.pageY - position.y;
 
+  const startTime = performance.now(); // Time when the animation starts
 
   const handleMouseMove = (event: MouseEvent) => {
-    const progress = Math.min(100 / lerpTime, 1);
+    const currentTime = performance.now();
+    const elapsedTime = currentTime - startTime;
+    const progress = Math.min(elapsedTime / lerpTime, 1);
+
     const x = lerp(position.x, event.pageX - startX, progress);
     const y = lerp(position.y, event.pageY - startY, progress);
     setPosition({ x, y });

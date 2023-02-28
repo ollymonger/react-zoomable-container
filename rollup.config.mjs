@@ -4,6 +4,7 @@ import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 import css from 'rollup-plugin-css-only';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 export default {
   input: './src/index.ts',
@@ -18,11 +19,19 @@ export default {
     },
   },
   external: ['react', 'react-dom'],
+  treeshake: true,
   plugins: [
     resolve(),
     commonjs(),
     typescript(),
     css({ output: 'dist/styles.css' }),
     terser(),
+    visualizer(
+      {
+        filename:'dist/stats.html',
+        sourcemap: true,
+        template: 'treemap',
+      }
+    ),
   ],
 };
