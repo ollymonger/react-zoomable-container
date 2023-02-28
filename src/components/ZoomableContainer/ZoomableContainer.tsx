@@ -103,7 +103,7 @@ function ZoomableContainer({ children, customControls, controlOverrides }: Zooma
   // Handle touch start
   const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
     event.preventDefault();
-    onTouchStart({ event: event, setPosition: setPosition, position: position });
+    onTouchStart({ event: event, setPosition: setPosition, position: position, lerpTime: controlOverrides && controlOverrides.lerpTime ? controlOverrides.lerpTime : DEFAULT_LERP_TIME });
   };
 
   // Reset button handler

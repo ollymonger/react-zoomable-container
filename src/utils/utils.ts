@@ -75,13 +75,19 @@ const onMouseDown = ({ event, setPosition, position, lerpTime } : { event: React
  * @param position The current position value.
  * @returns void
  * */
-const onTouchStart = ({ event, setPosition, position} : { event: React.TouchEvent<HTMLDivElement>, setPosition: ({x, y}: { x: number, y: number }) => void, position: { x: number, y: number } })  => {
+const onTouchStart = ({ event, setPosition, position, lerpTime } : { event: React.TouchEvent<HTMLDivElement>, setPosition: ({x, y}: { x: number, y: number }) => void, position: { x: number, y: number }, lerpTime: number }) => {
   const startX = event.touches[0].pageX - position.x;
   const startY = event.touches[0].pageY - position.y;
 
+  const startTime = performance.now(); // Time when the animation starts
+
   const handleTouchMove = (event: TouchEvent) => {
-    const x = event.touches[0].pageX - startX;
-    const y = event.touches[0].pageY - startY;
+    const currentTime = performance.now();
+    const elapsedTime = currentTime - startTime;
+    const progress = Math.min(elapsedTime / lerpTime, 1);
+
+    const x = lerp(position.x, event.touches[0].pageX - startX, progress);
+    const y = lerp(position.y, event.touches[0].pageY - startY, progress);
     setPosition({ x, y });
   };
 
@@ -93,7 +99,6 @@ const onTouchStart = ({ event, setPosition, position} : { event: React.TouchEven
   document.addEventListener('touchmove', handleTouchMove);
   document.addEventListener('touchend', handleTouchEnd);
 };
-
 
 /**
  * A function that linearly interpolates between two numbers.
