@@ -1,5 +1,5 @@
 import React from "react";
-export declare const Container: ({ scale, position, children }: {
+declare const Container: ({ scale, position, children }: {
     scale: number;
     position: {
         x: number;
@@ -7,3 +7,4 @@ export declare const Container: ({ scale, position, children }: {
     };
     children: React.ReactNode;
 }) => JSX.Element;
+export { Container };

@@ -1,5 +1,5 @@
 /// <reference types="react" />
-export declare const Controls: ({ handleReset, info }: {
+declare const Controls: ({ handleReset, info }: {
     handleReset: () => void;
     info: {
         scale: number;
@@ -9,3 +9,4 @@ export declare const Controls: ({ handleReset, info }: {
         };
     };
 }) => JSX.Element;
+export { Controls };
