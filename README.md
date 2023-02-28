@@ -22,6 +22,8 @@
 
 ### Usage
 
+Please checkout the  `<Controls>` component for more advance usages.
+
 > ```typescript
 > import { ZoomableContainer } from 'react-zoomable-container';
 >
@@ -35,12 +37,12 @@
 >  )
 > }
 >
-> // or providing custom controls and overrides (both optional)
+> // or providing custom controls and overrides and controls to lock/unlock pan and zoom! (all optional)
 >  
 > import { ZoomableContainer } from 'react-zoomable-container';
 >
 > const Controls = () => {
->   const { handleReset, zoomIn, zoomOut, info } = useZoomableContext();
+>   const { handleReset, zoomIn, zoomOut, info, controls: { pan: { locked: panLocked, setLocked: setPanLock }, zoom: { locked: zoomLocked, setLocked: setZoomLock } } } = useZoomableContext();
 >
 >   return (
 >     <div style={{
@@ -58,6 +60,12 @@
 >         <button onClick={handleReset}>Reset</button>
 >         <button onClick={zoomIn}>Zoom In</button>
 >         <button onClick={zoomOut}>Zoom Out</button>
+>         <button onClick={() => setPanLock(!panLocked)}>
+>           {panLocked ? 'Unlock Pan' : 'Lock Pan'}
+>         </button>
+>         <button onClick={() => setZoomLock(!zoomLocked)}>
+>           {zoomLocked ? 'Unlock Zoom' : 'Lock Zoom'}
+>         </button>
 >       </div>
 >       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
 >         <h5>Scale</h5>
@@ -101,8 +109,6 @@ You can also create your own Controls component to add.
 ### Roadmap:
 
 > Integrate a pinch mechanic
->
-> Add buttons for zooming in/out by default
 
 ### Available properties
 

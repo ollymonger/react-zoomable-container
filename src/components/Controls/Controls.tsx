@@ -4,7 +4,19 @@ import { useZoomableContext } from "../../utils";
 // This is an example of a Control component which takes in a handleReset function and info object as props, 
 // which is provided from the ZoomableContainer context.
 const Controls = () => {
-  const { handleReset, zoomIn, zoomOut, info, controls: { pan: { locked: panLocked, setLocked: setPanLock }, zoom: { locked: zoomLocked, setLocked: setZoomLock } } } = useZoomableContext();
+  const { handleReset, zoomIn, zoomOut, info, controls: { pan: { locked: panLocked, setLocked: setPanLock }, zoom: { locked: zoomLocked, setLocked: setZoomLock } }, controlOverrides } = useZoomableContext();
+
+  const zoomInButtonDisabled = React.useMemo(() => {
+    if (controlOverrides && controlOverrides.maxScale) {
+      return info.scale >= controlOverrides.maxScale;
+    }
+  },[controlOverrides, info.scale])
+
+  const zoomOutButtonDisabled = React.useMemo(() => {
+    if (controlOverrides && controlOverrides.minScale) {
+      return info.scale <= controlOverrides.minScale;
+    }
+  },[controlOverrides, info.scale])
 
   return (
     <div style={{
@@ -20,8 +32,8 @@ const Controls = () => {
     }}>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
         <button onClick={handleReset}>Reset</button>
-        <button onClick={zoomIn}>Zoom In</button>
-        <button onClick={zoomOut}>Zoom Out</button>
+        <button onClick={zoomIn} disabled={zoomInButtonDisabled}>Zoom In</button>
+        <button onClick={zoomOut} disabled={zoomOutButtonDisabled}>Zoom Out</button>
         <button onClick={() => setPanLock(!panLocked)}>
           {panLocked ? 'Unlock Pan' : 'Lock Pan'}
         </button>
