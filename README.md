@@ -1,6 +1,3 @@
-Almost out of storage … If you run out, you can't create or edit files, send or receive email on Gmail, or back up to Google Photos.
-My Drive
-
 # 🔭 react-zoomable-container
 
 ## A react component which allows you to make anything zoomable, pannable and pinchable.
