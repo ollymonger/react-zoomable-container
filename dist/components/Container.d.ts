@@ -6,4 +6,4 @@ export declare const Container: ({ scale, position, children }: {
         y: number;
     };
     children: React.ReactNode;
-}) => JSX.Element;
+}) => any;

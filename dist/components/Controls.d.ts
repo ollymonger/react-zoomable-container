@@ -1,4 +1,3 @@
-/// <reference types="react" />
 export declare const Controls: ({ handleReset, info }: {
     handleReset: () => void;
     info: {
@@ -8,4 +7,4 @@ export declare const Controls: ({ handleReset, info }: {
             y: number;
         };
     };
-}) => JSX.Element;
+}) => any;

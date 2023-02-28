@@ -1,5 +1,4 @@
 import { createContext, useContext } from "react";
-import { DEFAULT_LERP_TIME, DEFAULT_MAX_SCALE, DEFAULT_MIN_SCALE, DEFAULT_POSITION, DEFAULT_SCALE, DEFAULT_SCALE_STEP } from "./defaults";
 
 /**
  * An object describing the values available in the `WrapperContext`.
@@ -8,7 +7,6 @@ import { DEFAULT_LERP_TIME, DEFAULT_MAX_SCALE, DEFAULT_MIN_SCALE, DEFAULT_POSITI
  * - `info`: An object containing the current zoom and pan values.
  *   - `scale`: The current scale factor for zooming.
  *   - `position`: The current x and y positions for panning.
- *   - `controlOverrides`: An object containing the values that will be used to override the default values for the `ZoomableContainer` component.
  */
 type WrapperContextType = {
   /**
@@ -29,32 +27,11 @@ type WrapperContextType = {
   info: {
     scale: number;
     position: { x: number; y: number };
-  },
-
-  controlOverrides?: ControlOverridesType
+  }
 }
 
 
-const ZoomableContainerContext = createContext<WrapperContextType>({ 
-  handleReset: () => {}, 
-  zoomIn: () => {}, 
-  zoomOut: () => {}, 
-  info: { 
-    scale: 0, 
-    position: { x: 0, y: 0 } 
-  }, 
-  controlOverrides: { 
-    scale: DEFAULT_SCALE, 
-    position: { 
-      x: DEFAULT_POSITION.x, 
-      y: DEFAULT_POSITION.y 
-    }, 
-    lerpTime: DEFAULT_LERP_TIME, 
-    scaleStep: DEFAULT_SCALE_STEP,
-    minScale: DEFAULT_MIN_SCALE,
-    maxScale: DEFAULT_MAX_SCALE
-  }   
-});
+export const ZoomableContainerContext = createContext<WrapperContextType>({ handleReset: () => {}, zoomIn: () => {}, zoomOut: () => {}, info: { scale: 0, position: { x: 0, y: 0 } } });
 
 /**
  * A hook that provides access to the current `ZoomableContainerContext` values.
@@ -63,6 +40,4 @@ const ZoomableContainerContext = createContext<WrapperContextType>({
  * The `handleReset` function can be called to reset the zoom and pan values to their defaults,
  * and the `info` object contains the current zoom and pan values.
  */
-const useZoomableContext = () => useContext(ZoomableContainerContext);
-
-export { ZoomableContainerContext, useZoomableContext };
+export const useZoomableContext = () => useContext(ZoomableContainerContext);

@@ -24,30 +24,11 @@ jobs:
       - name: Build
         run: yarn build
 
-      # Create a new Git release
-      - name: Create Git Release
-        uses: softprops/action-gh-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          files: |
-            dist/*
-          tag_name: v${{ github.ref }}
-          release_name: Release v${{ github.ref }}
-          body: |
-            ####Changes in this release:
-            - Add a detailed readme.
-            - Provide doc strings where needed.
-            - Provide defaults and overrides.
-            - Implement smoothing to the mouse scroll.
-          draft: false
-          prerelease: false
-
       # Authenticate with npm
-      # - name: Authenticate with npm
-      #   run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > .npmrc
+      - name: Authenticate with npm
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_AUTH_TOKEN }}" > .npmrc
 
-      # # Publish the package to npm
-      # - name: Publish to npm
-      #   run: yarn publish
-      #   if: github.ref == 'refs/heads/main'
+      # Publish the package to npm
+      - name: Publish to npm
+        run: yarn publish
+        if: github.ref == 'refs/heads/main'

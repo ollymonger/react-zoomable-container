@@ -1,11 +1,11 @@
 import React from "react";
 
-const Container = ({ scale, position, children } : { scale: number; position: { x: number; y: number }, children: React.ReactNode }) => {
+export const Container = ({ scale, position, children } : { scale: number; position: { x: number; y: number }, children: React.ReactNode }) => {
   return (
     <div
       style={{
         transform: `scale(${scale}) translate(${position.x}px, ${position.y}px)`,
-        transformOrigin: '50% 50%', // Make sure the scale is centered
+        transformOrigin: '0 0',
         height:'100%',
         width:'100%'
       }}
@@ -14,5 +14,3 @@ const Container = ({ scale, position, children } : { scale: number; position: { 
     </div>
   );
 }
-
-export { Container };

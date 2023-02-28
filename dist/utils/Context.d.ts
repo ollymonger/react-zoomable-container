@@ -6,9 +6,8 @@
  * - `info`: An object containing the current zoom and pan values.
  *   - `scale`: The current scale factor for zooming.
  *   - `position`: The current x and y positions for panning.
- *   - `controlOverrides`: An object containing the values that will be used to override the default values for the `ZoomableContainer` component.
  */
-type WrapperContextType = {
+declare type WrapperContextType = {
     /**
     * A function that resets the zoom and pan values to their defaults.
     */
@@ -31,9 +30,8 @@ type WrapperContextType = {
             y: number;
         };
     };
-    controlOverrides?: ControlOverridesType;
 };
-declare const ZoomableContainerContext: import("react").Context<WrapperContextType>;
+export declare const ZoomableContainerContext: import("react").Context<WrapperContextType>;
 /**
  * A hook that provides access to the current `ZoomableContainerContext` values.
  *
@@ -41,5 +39,5 @@ declare const ZoomableContainerContext: import("react").Context<WrapperContextTy
  * The `handleReset` function can be called to reset the zoom and pan values to their defaults,
  * and the `info` object contains the current zoom and pan values.
  */
-declare const useZoomableContext: () => WrapperContextType;
-export { ZoomableContainerContext, useZoomableContext };
+export declare const useZoomableContext: () => WrapperContextType;
+export {};
