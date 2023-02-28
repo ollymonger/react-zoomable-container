@@ -108,6 +108,8 @@ type ZoomableContainerProps= {
  */
 function ZoomableContainer({ children, customControls, controlOverrides }: ZoomableContainerProps) {
   const [scale, setScale] = useState<number>(controlOverrides && controlOverrides.scale ? controlOverrides?.scale : DEFAULT_SCALE);
+  const [zoomLock, setZoomLock] = useState<boolean>(false);
+  const [panLock, setPanLock] = useState<boolean>(false);
   const [position, setPosition] = useState<{ x: number; y: number }>(controlOverrides && controlOverrides.position ? controlOverrides?.position : DEFAULT_POSITION);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -143,6 +145,16 @@ function ZoomableContainer({ children, customControls, controlOverrides }: Zooma
     zoom({ inOrOut: 'out', setScale: setScale, scale: scale, controlOverrides });
   },[scale, controlOverrides, setScale, zoom])
 
+  const switchLockState = React.useCallback((type: "zoom" | "pan") => {    
+    if (type === "zoom") {
+      setZoomLock(!zoomLock);
+      return;
+    }
+    
+    setPanLock(!panLock);
+    return;
+  },[])
+
   return (
     <div 
       ref={ref}
@@ -151,7 +163,7 @@ function ZoomableContainer({ children, customControls, controlOverrides }: Zooma
       onTouchStart={handleTouchStart}
       style={styles.container}
     >
-      <ZoomableContainerContext.Provider value={{ handleReset, zoomIn, zoomOut, info: {scale, position}, controlOverrides }}>
+      <ZoomableContainerContext.Provider value={{ handleReset, zoomIn, zoomOut, info: {scale, position}, controlOverrides, controls: { pan: { locked: false, setLocked: () => switchLockState("pan") } , zoom: { locked: false, setLocked: () => switchLockState("zoom") } }}}>
         {customControls ? customControls : <Controls />}
         <Container scale={scale} position={position}>
           {children}

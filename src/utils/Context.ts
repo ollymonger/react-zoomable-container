@@ -32,7 +32,21 @@ type WrapperContextType = {
     position: { x: number; y: number };
   },
 
-  controlOverrides?: ControlOverridesType
+  controlOverrides?: ControlOverridesType,
+
+  /**
+   * Provides the ability to lock the pan and zoom controls.
+   * */
+  controls: {
+    pan: {
+      locked: boolean;
+      setLocked?: (boolean: boolean) => void;
+    },
+    zoom: {
+      locked: boolean;
+      setLocked?: (boolean: boolean) => void;
+    }
+  }
 }
 
 
@@ -54,7 +68,15 @@ const ZoomableContainerContext = createContext<WrapperContextType>({
     scaleStep: DEFAULT_SCALE_STEP,
     minScale: DEFAULT_MIN_SCALE,
     maxScale: DEFAULT_MAX_SCALE
-  }   
+  },
+  controls: {
+    pan: {
+      locked: false
+    },
+    zoom: {
+      locked: false
+    }
+  }
 });
 
 /**
