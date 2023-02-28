@@ -4,10 +4,6 @@ on:
   push:
     branches:
       - master
-
-permissions:
-  contents: write
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,5 +29,5 @@ jobs:
 
       # Publish the package to npm
       - name: Publish to npm
-        run: yarn publish
+        run: yarn publish 
         if: github.ref == 'refs/heads/main'
