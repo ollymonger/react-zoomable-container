@@ -1,4 +1,5 @@
 /// <reference types="react" />
+import { ControlOverridesType } from "./types";
 /**
  * An object describing the values available in the `WrapperContext`.
  *
@@ -32,6 +33,19 @@ type WrapperContextType = {
         };
     };
     controlOverrides?: ControlOverridesType;
+    /**
+     * Provides the ability to lock the pan and zoom controls.
+     * */
+    controls: {
+        pan: {
+            locked: boolean;
+            setLocked: (boolean: boolean) => void;
+        };
+        zoom: {
+            locked: boolean;
+            setLocked: (boolean: boolean) => void;
+        };
+    };
 };
 declare const ZoomableContainerContext: import("react").Context<WrapperContextType>;
 /**

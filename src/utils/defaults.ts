@@ -40,6 +40,7 @@ const DEFAULT_MIN_SCALE: number = 0.2;
  * */
 const DEFAULT_MAX_SCALE: number = 1.8;
 
+const DEFAULT_LOCK_STATE: boolean = false;
 
 export {
   DEFAULT_LERP_TIME,
@@ -47,5 +48,6 @@ export {
   DEFAULT_POSITION,
   DEFAULT_SCALE_STEP,
   DEFAULT_MIN_SCALE,
-  DEFAULT_MAX_SCALE
+  DEFAULT_MAX_SCALE,
+  DEFAULT_LOCK_STATE
 }

@@ -2,7 +2,7 @@ import React, { useState, useRef, ReactElement } from 'react';
 import { Container } from '../Container';
 import { ZoomableContainerContext } from '../../utils/Context';
 import { Controls } from '../Controls';
-import { DEFAULT_LERP_TIME, DEFAULT_POSITION, DEFAULT_SCALE, DEFAULT_SCALE_STEP, onMouseDown, onTouchStart, onWheel, zoom } from '../../utils';
+import { DEFAULT_LERP_TIME, DEFAULT_LOCK_STATE, DEFAULT_POSITION, DEFAULT_SCALE, DEFAULT_SCALE_STEP, onMouseDown, onTouchStart, onWheel, zoom } from '../../utils';
 import styles from './styles'
 import { ControlOverridesType } from '../../utils/types';
 
@@ -108,26 +108,26 @@ type ZoomableContainerProps= {
  */
 function ZoomableContainer({ children, customControls, controlOverrides }: ZoomableContainerProps) {
   const [scale, setScale] = useState<number>(controlOverrides && controlOverrides.scale ? controlOverrides?.scale : DEFAULT_SCALE);
-  const [zoomLock, setZoomLock] = useState<boolean>(false);
-  const [panLock, setPanLock] = useState<boolean>(false);
+  const [zoomLock, setZoomLock] = useState<boolean>(controlOverrides && controlOverrides.disableZoom ? controlOverrides?.disableZoom : DEFAULT_LOCK_STATE);
+  const [panLock, setPanLock] = useState<boolean>(controlOverrides && controlOverrides.disablePan ? controlOverrides?.disablePan : DEFAULT_LOCK_STATE);
   const [position, setPosition] = useState<{ x: number; y: number }>(controlOverrides && controlOverrides.position ? controlOverrides?.position : DEFAULT_POSITION);
   const ref = useRef<HTMLDivElement>(null);
 
   // Handle scroll events
   const handleWheel = (event: React.WheelEvent<HTMLDivElement>) => {
-    onWheel({ event: event, setScale: setScale, scale: scale, controlOverrides });
+    onWheel({ event: event, setScale: setScale, scale: scale, controlOverrides, zoomLock });
   };
 
   // Handle mouse down
   const handleMouseDown = (event: React.MouseEvent<HTMLDivElement>) => {
     event.preventDefault();
-    onMouseDown({ event: event, setPosition: setPosition, position: position, lerpTime: controlOverrides && controlOverrides.lerpTime ? controlOverrides.lerpTime : DEFAULT_LERP_TIME })
+    onMouseDown({ event: event, setPosition: setPosition, position: position, lerpTime: controlOverrides && controlOverrides.lerpTime ? controlOverrides.lerpTime : DEFAULT_LERP_TIME, panLock })
   };
 
   // Handle touch start
   const handleTouchStart = (event: React.TouchEvent<HTMLDivElement>) => {
     event.preventDefault();
-    onTouchStart({ event: event, setPosition: setPosition, position: position, lerpTime: controlOverrides && controlOverrides.lerpTime ? controlOverrides.lerpTime : DEFAULT_LERP_TIME });
+    onTouchStart({ event: event, setPosition: setPosition, position: position, lerpTime: controlOverrides && controlOverrides.lerpTime ? controlOverrides.lerpTime : DEFAULT_LERP_TIME, panLock });
   };
 
   // Reset button handler
@@ -138,20 +138,23 @@ function ZoomableContainer({ children, customControls, controlOverrides }: Zooma
 
 
   const zoomIn = React.useCallback(() => {
+    if (zoomLock) return;
     zoom({ inOrOut: 'in', setScale: setScale, scale: scale, controlOverrides });
-  },[scale, controlOverrides, setScale, zoom])
+  },[scale, controlOverrides, setScale, zoom, zoomLock])
 
   const zoomOut = React.useCallback(() => {
+    if (zoomLock) return;
     zoom({ inOrOut: 'out', setScale: setScale, scale: scale, controlOverrides });
-  },[scale, controlOverrides, setScale, zoom])
+  },[scale, controlOverrides, setScale, zoom, zoomLock])
 
   const switchLockState = React.useCallback((type: "zoom" | "pan") => {    
     if (type === "zoom") {
-      setZoomLock(!zoomLock);
+      setZoomLock((prev) => !prev);
+
       return;
     }
     
-    setPanLock(!panLock);
+    setPanLock((prev) => !prev);
     return;
   },[])
 
@@ -163,7 +166,7 @@ function ZoomableContainer({ children, customControls, controlOverrides }: Zooma
       onTouchStart={handleTouchStart}
       style={styles.container}
     >
-      <ZoomableContainerContext.Provider value={{ handleReset, zoomIn, zoomOut, info: {scale, position}, controlOverrides, controls: { pan: { locked: false, setLocked: () => switchLockState("pan") } , zoom: { locked: false, setLocked: () => switchLockState("zoom") } }}}>
+      <ZoomableContainerContext.Provider value={{ handleReset, zoomIn, zoomOut, info: {scale, position}, controlOverrides, controls: { pan: { locked: panLock, setLocked: () => switchLockState("pan") } , zoom: { locked: zoomLock, setLocked: () => switchLockState("zoom") } }}}>
         {customControls ? customControls : <Controls />}
         <Container scale={scale} position={position}>
           {children}
