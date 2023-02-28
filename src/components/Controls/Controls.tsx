@@ -19,33 +19,64 @@ const Controls = () => {
   },[controlOverrides, info.scale])
 
   return (
-    <div style={{
-      position:'absolute',
-      top:0,
-      left:0,
-      zIndex:1000,
-      display:'flex',
-      flexDirection: "row",
-      alignItems:'center',
-      justifyContent:'center',
-      padding:'1em',
-    }}>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-        <button onClick={handleReset}>Reset</button>
-        <button onClick={zoomIn} disabled={zoomInButtonDisabled}>Zoom In</button>
-        <button onClick={zoomOut} disabled={zoomOutButtonDisabled}>Zoom Out</button>
-        <button onClick={() => setPanLock(!panLocked)}>
+    <div style={{ position: 'absolute', top: '10px', right: '10px', backgroundColor: '#ffffff', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)', borderRadius: '5px', padding: '10px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <h2 style={{ fontSize: '20px', margin: '0 0 10px' }}>Map Controls</h2>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <button style={{ 
+          backgroundColor: '#007bff', 
+          color: '#ffffff', 
+          border: '2px solid #007bff', 
+          borderRadius: '5px', 
+          padding: '10px 20px', 
+          fontSize: '16px', 
+          marginBottom: '10px' 
+        }} onClick={handleReset}>Reset</button>
+        <button style={{ 
+          backgroundColor: '#007bff', 
+          color: '#ffffff', 
+          border: '2px solid #007bff', 
+          borderRadius: '5px', 
+          padding: '10px 20px', 
+          fontSize: '16px',
+          marginBottom: '10px' 
+        }} onClick={zoomIn} disabled={zoomInButtonDisabled}>Zoom In</button>
+        <button style={{ 
+          backgroundColor: '#007bff', 
+          color: '#ffffff', 
+          border: '2px solid #007bff', 
+          borderRadius: '5px', 
+          padding: '10px 20px', 
+          fontSize: '16px', 
+          marginBottom: '10px' 
+        }} onClick={zoomOut} disabled={zoomOutButtonDisabled}>Zoom Out</button>
+        <button style={{ 
+          backgroundColor: '#007bff', 
+          color: '#ffffff', 
+          border: '2px solid #007bff', 
+          borderRadius: '5px', 
+          padding: '10px 20px', 
+          fontSize: '16px', 
+          marginBottom: '10px' 
+        }} onClick={() => setPanLock(!panLocked)}>
           {panLocked ? 'Unlock Pan' : 'Lock Pan'}
         </button>
-        <button onClick={() => setZoomLock(!zoomLocked)}>
+        <button style={{ 
+          backgroundColor: '#007bff', 
+          color: '#ffffff', 
+          border: '2px solid #007bff', 
+          borderRadius: '5px', 
+          padding: '10px 20px', 
+          fontSize: '16px', 
+          marginBottom: '10px'
+        }} onClick={() => setZoomLock(!zoomLocked)}>
           {zoomLocked ? 'Unlock Zoom' : 'Lock Zoom'}
         </button>
       </div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-        <h5>Scale</h5>
-        <p>{info.scale.toFixed(2)}</p>
-        <h5>Position</h5>
-        <p>{`x: ${info.position.x.toFixed(2)}, y: ${info.position.y.toFixed(2)}`}</p>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginTop: '10px' }}>
+        <h5 style={{ fontSize: '16px', margin: '0' }}>Scale</h5>
+        <p style={{ fontSize: '14px', margin: '0' }}>{info.scale.toFixed(2)}</p>
+        <h5 style={{ fontSize: '16px', margin: '10px 0 0' }}>Position</h5>
+        <p style={{ fontSize: '14px', margin: '0' }}>{`x: ${info.position.x.toFixed(2)}, y: ${info.position.y.toFixed(2)}`}</p>
       </div>
     </div>
   )
