@@ -7,7 +7,7 @@ on:
 
 permissions:
   contents: write
-  
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -33,16 +33,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          files: |
-            dist/*
           tag_name: v${{ github.ref }}
-          name: Release v${{ github.ref }}
+          name: Latest
           body: |
-            ####Changes in this release:
-            - Add a detailed readme.
-            - Provide doc strings where needed.
-            - Provide defaults and overrides.
-            - Implement smoothing to the mouse scroll.
+            CI Fixes
           draft: false
           prerelease: false
 
