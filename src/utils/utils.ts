@@ -121,7 +121,7 @@ const zoom = ({ inOrOut, setScale, scale, controlOverrides } : { inOrOut: 'in' |
     const elapsedTime = currentTime - startTime; // Time elapsed since the animation started
     const progress = Math.min(elapsedTime / duration, 1); // Progress of the animation (0 to 1)
 
-    const currentScale = lerp(scale, targetScale, progress); // Calculate the current scale based on the progress
+    const currentScale = Math.max(controlOverrides && controlOverrides.minScale ? controlOverrides.minScale : DEFAULT_MIN_SCALE, Math.min(controlOverrides && controlOverrides.maxScale ? controlOverrides.maxScale : DEFAULT_MAX_SCALE, scale + ((targetScale - scale) * progress))); // Calculate the current scale based on the progress
 
     setScale(currentScale);
 
