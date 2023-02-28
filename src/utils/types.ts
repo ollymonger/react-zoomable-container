@@ -43,5 +43,17 @@ export type ControlOverridesType = {
      * @type {number}
      * default: 1.8
      * */
-    maxScale?: number
+    maxScale?: number,
+    /**
+     * Disables the zoom functionality
+     * @type {boolean}
+     * default: false
+     * */
+    disableZoom?: boolean,
+    /**
+     * Disables the pan functionality
+     * @type {boolean}
+     * default: false
+     * */
+    disablePan?: boolean
 }
