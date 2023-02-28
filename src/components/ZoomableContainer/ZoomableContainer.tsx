@@ -153,7 +153,7 @@ function ZoomableContainer({ children, customControls, controlOverrides }: Zooma
       style={styles.container}
     >
       <ZoomableContainerContext.Provider value={{ handleReset, zoomIn, zoomOut, info: {scale, position}, controlOverrides }}>
-        {customControls ? customControls : <Controls handleReset={handleReset} info={{scale, position}} />}
+        {customControls ? customControls : <Controls />}
         <Container scale={scale} position={position}>
           {children}
         </Container>
