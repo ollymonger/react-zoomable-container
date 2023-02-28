@@ -5,7 +5,7 @@ import { useZoomableContext } from "../../utils";
 // which is provided from the ZoomableContainer context.
 const Controls = () => {
   const { handleReset, zoomIn, zoomOut, info } = useZoomableContext();
-  
+
   return (
     <div style={{
       position:'absolute',
@@ -18,12 +18,17 @@ const Controls = () => {
       justifyContent:'center',
       padding:'1em',
     }}>
-      <button onClick={handleReset}>Reset</button>
-      <button onClick={zoomIn}>Zoom +</button>
-      <button onClick={zoomOut}>Zoom -</button>
-      <p className="scaleInfo">
-        {`Scale: ${info.scale.toFixed(2)} | Position: x${info.position.x.toFixed(2)}, y${info.position.y.toFixed(2)}`}
-      </p>        
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <button onClick={handleReset}>Reset</button>
+        <button onClick={zoomIn}>Zoom In</button>
+        <button onClick={zoomOut}>Zoom Out</button>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+        <h5>Scale</h5>
+        <p>{info.scale.toFixed(2)}</p>
+        <h5>Position</h5>
+        <p>{`x: ${info.position.x.toFixed(2)}, y: ${info.position.y.toFixed(2)}`}</p>
+      </div>
     </div>
   )
 }
