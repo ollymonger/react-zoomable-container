@@ -8,8 +8,13 @@ My Drive
 ### Key Features
 
 > 🔥 Fast, reliable solution to provide panning capabilities across all platforms.
+>
+>
 > 🛠 Lightweight requiring no external dependencies.
+>
+>
 > 🪁 Easy to use and customizable. Integrate your frontend with our context api.
+>
 >
 > 👑 Ability to override default values, provide custom buttons to control zoomin/out/reset.
 
