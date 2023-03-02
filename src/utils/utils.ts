@@ -52,6 +52,7 @@ const onMouseDown = ({ event, setPosition, position, lerpTime, panLock } : { eve
   const startTime = performance.now(); // Time when the animation starts
 
   const handleMouseMove = (event: MouseEvent) => {
+    event.preventDefault();
     const currentTime = performance.now();
     const elapsedTime = currentTime - startTime;
     const progress = Math.min(elapsedTime / lerpTime, 1);
@@ -86,6 +87,7 @@ const onTouchStart = ({ event, setPosition, position, lerpTime, panLock } : { ev
   const startTime = performance.now(); // Time when the animation starts
 
   const handleTouchMove = (event: TouchEvent) => {
+    event.preventDefault();
     const currentTime = performance.now();
     const elapsedTime = currentTime - startTime;
     const progress = Math.min(elapsedTime / lerpTime, 1);
