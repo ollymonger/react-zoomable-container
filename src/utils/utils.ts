@@ -44,7 +44,7 @@ const onWheel = ({ event, setScale, scale, controlOverrides, zoomLock } : { even
  * @param lerpTime The lerp time value.
  * @returns void
  * */
-const onMouseDown = ({ event, setPosition, position, lerpTime, panLock } : { event: React.MouseEvent<HTMLDivElement>, setPosition: ({x, y}: { x: number, y: number }) => void, position: { x: number, y: number }, lerpTime: number, panLock: boolean }) => {
+const onMouseDown = ({ event, setPosition, position, scale, lerpTime, panLock } : { event: React.MouseEvent<HTMLDivElement>, setPosition: ({x, y}: { x: number, y: number }) => void, position: { x: number, y: number }, scale:number, lerpTime: number, panLock: boolean }) => {
   if(panLock) return;
   const startX = event.pageX - position.x;
   const startY = event.pageY - position.y;
@@ -57,8 +57,8 @@ const onMouseDown = ({ event, setPosition, position, lerpTime, panLock } : { eve
     const elapsedTime = currentTime - startTime;
     const progress = Math.min(elapsedTime / lerpTime, 1);
 
-    const x = lerp(position.x, event.pageX - startX, progress);
-    const y = lerp(position.y, event.pageY - startY, progress);
+    const x = lerp(position.x, event.pageX - startX, progress / scale);
+    const y = lerp(position.y, event.pageY - startY, progress / scale);
     setPosition({ x, y });
   };
 
@@ -67,7 +67,7 @@ const onMouseDown = ({ event, setPosition, position, lerpTime, panLock } : { eve
     document.removeEventListener('mouseup', handleMouseUp);
   };
 
-  document.addEventListener('mousemove', handleMouseMove);
+  document.addEventListener('mousemove', handleMouseMove, { passive: false });
   document.addEventListener('mouseup', handleMouseUp);
 };
 
@@ -79,7 +79,7 @@ const onMouseDown = ({ event, setPosition, position, lerpTime, panLock } : { eve
  * @param position The current position value.
  * @returns void
  * */
-const onTouchStart = ({ event, setPosition, position, lerpTime, panLock } : { event: React.TouchEvent<HTMLDivElement>, setPosition: ({x, y}: { x: number, y: number }) => void, position: { x: number, y: number }, lerpTime: number, panLock: boolean  }) => {
+const onTouchStart = ({ event, setPosition, position, scale, lerpTime, panLock } : { event: React.TouchEvent<HTMLDivElement>, setPosition: ({x, y}: { x: number, y: number }) => void, position: { x: number, y: number }, scale: number, lerpTime: number, panLock: boolean  }) => {
   if(panLock) return;
   const startX = event.touches[0].pageX - position.x;
   const startY = event.touches[0].pageY - position.y;
@@ -92,8 +92,8 @@ const onTouchStart = ({ event, setPosition, position, lerpTime, panLock } : { ev
     const elapsedTime = currentTime - startTime;
     const progress = Math.min(elapsedTime / lerpTime, 1);
 
-    const x = lerp(position.x, event.touches[0].pageX - startX, progress);
-    const y = lerp(position.y, event.touches[0].pageY - startY, progress);
+    const x = lerp(position.x, event.touches[0].pageX - startX, progress / scale);
+    const y = lerp(position.y, event.touches[0].pageY - startY, progress / scale);
     setPosition({ x, y });
   };
 
@@ -102,7 +102,7 @@ const onTouchStart = ({ event, setPosition, position, lerpTime, panLock } : { ev
     document.removeEventListener('touchend', handleTouchEnd);
   };
 
-  document.addEventListener('touchmove', handleTouchMove);
+  document.addEventListener('touchmove', handleTouchMove, { passive: false }); // set passive to false to allow preventDefault() to work
   document.addEventListener('touchend', handleTouchEnd);
 };
 

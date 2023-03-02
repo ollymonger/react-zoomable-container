@@ -24,7 +24,7 @@ declare const onWheel: ({ event, setScale, scale, controlOverrides, zoomLock }: 
  * @param lerpTime The lerp time value.
  * @returns void
  * */
-declare const onMouseDown: ({ event, setPosition, position, lerpTime, panLock }: {
+declare const onMouseDown: ({ event, setPosition, position, scale, lerpTime, panLock }: {
     event: React.MouseEvent<HTMLDivElement>;
     setPosition: ({ x, y }: {
         x: number;
@@ -34,6 +34,7 @@ declare const onMouseDown: ({ event, setPosition, position, lerpTime, panLock }:
         x: number;
         y: number;
     };
+    scale: number;
     lerpTime: number;
     panLock: boolean;
 }) => void;
@@ -45,7 +46,7 @@ declare const onMouseDown: ({ event, setPosition, position, lerpTime, panLock }:
  * @param position The current position value.
  * @returns void
  * */
-declare const onTouchStart: ({ event, setPosition, position, lerpTime, panLock }: {
+declare const onTouchStart: ({ event, setPosition, position, scale, lerpTime, panLock }: {
     event: React.TouchEvent<HTMLDivElement>;
     setPosition: ({ x, y }: {
         x: number;
@@ -55,6 +56,7 @@ declare const onTouchStart: ({ event, setPosition, position, lerpTime, panLock }
         x: number;
         y: number;
     };
+    scale: number;
     lerpTime: number;
     panLock: boolean;
 }) => void;
